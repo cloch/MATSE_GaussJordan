@@ -1,5 +1,5 @@
 public class Matrix {
-    private double[] values;
+    private double[][] values;
     private int dimX;
     private int dimY;
 
