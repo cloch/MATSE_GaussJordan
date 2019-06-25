@@ -5,14 +5,16 @@ public class Matrix {
     
     public Matrix (int x, int y){
     	values = new double[x][y];
+    	dimX = x;
+    	dimY = y;
     }
     
     public double getValue(int x, int y){
-    	return values[x][y];
+        return values[x][y];
     }
     
     public void setValue(int x, int y, double value){
-    	values[x][y] = value;
+        values[x][y] = value;
     }
 
     public void gauss(){

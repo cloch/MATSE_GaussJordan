@@ -1,7 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-
-        Matrix m = new Matrix();
+        Matrix m = new Matrix(5,5);
         m.print();
     }
 }
