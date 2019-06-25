@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Matrix m = new Matrix(5,5);
+        m.print();
     }
 }

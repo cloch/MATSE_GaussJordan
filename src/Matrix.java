@@ -10,11 +10,11 @@ public class Matrix {
     }
     
     public double getValue(int x, int y){
-    	return values[x][y];
+        return values[x][y];
     }
     
     public void setValue(int x, int y, double value){
-    	values[x][y] = value;
+        values[x][y] = value;
     }
 
     public void gauss(){
@@ -58,13 +58,15 @@ public class Matrix {
             double maxVal = 0.0;
             int maxIndex = 0;
             for (int y = ySort; y < dimY; y++) {
-                if (firstNonZero[y] > maxVal) {
-                    maxVal = firstNonZero[y][x];
-                    maxIndex = y;
+                for (int x = 0; x < dimX; x++) {
+                    if (firstNonZero[y] > maxVal) {
+                        maxVal = firstNonZero[y];
+                        maxIndex = y;
+                    }
                 }
             }
 
-            int[] tempRow = values[ySort];
+            double[] tempRow = values[ySort];
             values[ySort] = values[maxIndex];
             values[maxIndex] = tempRow;
         }
