@@ -27,7 +27,7 @@ public class Matrix {
     /**
      * Normalizes every row in the matrix.
      */
-    private void norm(){
+    public void norm(){
         for (int y = 0; y < dimY; y++){
             int firstX = 0;
             while (Math.abs(values[y][firstX]) < 2 * Double.MIN_VALUE){ //value close to 0
