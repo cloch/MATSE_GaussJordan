@@ -2,6 +2,18 @@ public class Matrix {
     private double[][] values;
     private int dimX;
     private int dimY;
+    
+    public Matrix (int x, int y){
+    	values = new double[x][y];
+    }
+    
+    public double getValue(int x, int y){
+    	return values[x][y];
+    }
+    
+    public void setValue(int x, int y, double value){
+    	values[x][y] = value;
+    }
 
     public void gauss(){
 
@@ -61,7 +73,7 @@ public class Matrix {
             for (int x = 0; x < dimX; x++) {
                 System.out.print(values[y][x]+" ");
             }
-            System.out.println();
+            System.out.println();	
         }
     }
 }
