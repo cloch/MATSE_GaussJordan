@@ -4,17 +4,17 @@ public class Matrix {
     private int dimY;
     
     public Matrix (int x, int y){
-    	values = new double[x][y];
+    	values = new double[y][x];
     	dimX = x;
     	dimY = y;
     }
     
     public double getValue(int x, int y){
-        return values[x][y];
+        return values[y][x];
     }
     
     public void setValue(int x, int y, double value){
-        values[x][y] = value;
+        values[y][x] = value;
     }
 
     public void gauss(){
@@ -23,11 +23,11 @@ public class Matrix {
     public void jordan(){
 
     }
+
+    /**
+     * Normalizes every row in the matrix.
+     */
     private void norm(){
-        /*
-        for every row x find first value different from 0
-        divide all values in the same row by this value
-         */
         for (int y = 0; y < dimY; y++){
             int firstX = 0;
             while (Math.abs(values[y][firstX]) < 2 * Double.MIN_VALUE){ //value close to 0
@@ -44,34 +44,43 @@ public class Matrix {
     private void combine(){
 
     }
-    private void sortRows(){
+
+    /**
+     * Sorts matrix rows by number of preceding zeros.
+     */
+    public void sortRows(){
         int[] firstNonZero = new int[dimY];
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
                 if (values[y][x] != 0) {
                     firstNonZero[y] = x;
+                    break;
                 }
             }
         }
 
         for (int ySort = 0; ySort < dimY; ySort++) {
-            double maxVal = 0.0;
+            int maxVal = 0;
             int maxIndex = 0;
             for (int y = ySort; y < dimY; y++) {
-                for (int x = 0; x < dimX; x++) {
-                    if (firstNonZero[y] > maxVal) {
-                        maxVal = firstNonZero[y];
-                        maxIndex = y;
-                    }
+                if (firstNonZero[y] > maxVal) {
+                    maxVal = firstNonZero[y];
+                    maxIndex = y;
                 }
             }
 
             double[] tempRow = values[ySort];
             values[ySort] = values[maxIndex];
             values[maxIndex] = tempRow;
+            int temp = firstNonZero[ySort];
+            firstNonZero[ySort] = firstNonZero[maxIndex];
+            firstNonZero[maxIndex] = temp;
         }
     }
 
+    /**
+     * Prints matrix to console.
+     */
     public void print(){
         for (int y = 0; y < dimY; y++) {
             for (int x = 0; x < dimX; x++) {
@@ -79,5 +88,6 @@ public class Matrix {
             }
             System.out.println();	
         }
+        System.out.println();
     }
 }
