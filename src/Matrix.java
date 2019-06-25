@@ -44,13 +44,15 @@ public class Matrix {
             double maxVal = 0.0;
             int maxIndex = 0;
             for (int y = ySort; y < dimY; y++) {
-                if (firstNonZero[y] > maxVal) {
-                    maxVal = firstNonZero[y][x];
-                    maxIndex = y;
+                for (int x = 0; x < dimX; x++) {
+                    if (firstNonZero[y] > maxVal) {
+                        maxVal = firstNonZero[y];
+                        maxIndex = y;
+                    }
                 }
             }
 
-            int[] tempRow = values[ySort];
+            double[] tempRow = values[ySort];
             values[ySort] = values[maxIndex];
             values[maxIndex] = tempRow;
         }
