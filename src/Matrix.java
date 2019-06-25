@@ -2,6 +2,18 @@ public class Matrix {
     private double[][] values;
     private int dimX;
     private int dimY;
+    
+    public Matrix (int x, int y){
+    	values = new double[x][y];
+    }
+    
+    public double getValue(int x, int y){
+    	return values[x][y];
+    }
+    
+    public void setValue(int x, int y, double value){
+    	values[x][y] = value;
+    }
 
     public void gauss(){
 
@@ -44,13 +56,15 @@ public class Matrix {
             double maxVal = 0.0;
             int maxIndex = 0;
             for (int y = ySort; y < dimY; y++) {
-                if (firstNonZero[y] > maxVal) {
-                    maxVal = firstNonZero[y][x];
-                    maxIndex = y;
+                for (int x = 0; x < dimX; x++) {
+                    if (firstNonZero[y] > maxVal) {
+                        maxVal = firstNonZero[y];
+                        maxIndex = y;
+                    }
                 }
             }
 
-            int[] tempRow = values[ySort];
+            double[] tempRow = values[ySort];
             values[ySort] = values[maxIndex];
             values[maxIndex] = tempRow;
         }
@@ -61,7 +75,7 @@ public class Matrix {
             for (int x = 0; x < dimX; x++) {
                 System.out.print(values[y][x]+" ");
             }
-            System.out.println();
+            System.out.println();	
         }
     }
 }
