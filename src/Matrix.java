@@ -5,6 +5,8 @@ public class Matrix {
     
     public Matrix (int x, int y){
     	values = new double[x][y];
+    	dimX = x;
+    	dimY = y;
     }
     
     public double getValue(int x, int y){
