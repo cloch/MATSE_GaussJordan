@@ -15,7 +15,7 @@ public class Textfile {
 		try{
 			this.filepath = path;
 			input = new File(path);
-			if(input.exists()){
+			if(!input.exists()){
 				throw new IOException("File not found.");
 			}
 		}
@@ -58,10 +58,10 @@ public class Textfile {
 	public Matrix GenerateMatrix(ArrayList<Double> list)  throws Exception{
 		ArrayList<String> FContent = ReadFile();
 		ArrayList<ArrayList<Double>> lines = BuildMatLines(FContent);
-		Matrix m = new Matrix(list.size(), lines.get(0).size());
-		for(int i = 0; i < lines.size(); i++){
-			for (int j = 0; j < lines.get(i).size(); j++){
-				m.setValue(i, j, lines.get(i).get(j));
+		Matrix m = new Matrix(lines.get(0).size(), lines.size());
+		for (int i = 0; i < m.getDimY(); i++){
+			for (int j = 0; j < m.getDimX(); j++){
+				m.setValue(j, i, lines.get(i).get(j));
 			}
 		}
 		return m;

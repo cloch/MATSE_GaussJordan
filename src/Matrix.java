@@ -17,6 +17,14 @@ public class Matrix {
         values[y][x] = value;
     }
 
+    public int getDimX() {
+        return dimX;
+    }
+
+    public int getDimY() {
+        return dimY;
+    }
+
     public void gauss(){
 
     }
@@ -41,8 +49,17 @@ public class Matrix {
             }
         }
     }
-    private void combine(){
 
+    /**
+     * Combines all following rows with the given row.
+     * @param rowIndex The index of the row used to eliminate
+     */
+    public void combine(int rowIndex){
+        for (int i = rowIndex + 1; i < dimY; i++) {
+            for (int k = 0; k < dimX; k++) {
+                values[i][k] = values[rowIndex][k] - values[i][k];
+            }
+        }
     }
 
     /**
@@ -69,12 +86,14 @@ public class Matrix {
                 }
             }
 
-            double[] tempRow = values[ySort];
-            values[ySort] = values[maxIndex];
-            values[maxIndex] = tempRow;
-            int temp = firstNonZero[ySort];
-            firstNonZero[ySort] = firstNonZero[maxIndex];
-            firstNonZero[maxIndex] = temp;
+            if (maxVal != 0) {
+                double[] tempRow = values[ySort];
+                values[ySort] = values[maxIndex];
+                values[maxIndex] = tempRow;
+                int temp = firstNonZero[ySort];
+                firstNonZero[ySort] = firstNonZero[maxIndex];
+                firstNonZero[maxIndex] = temp;
+            }
         }
     }
 
