@@ -11,18 +11,8 @@ public class Main {
             System.out.println("Exception occured, a meaningful error message would be nice!");
         }
         if (m != null) {
-            m.sortRows();
-            m.print();
-            m.norm();
-            m.print();
-            m.combine(0);
-            m.print();
-            m.norm();
-            m.print();
-            m.combine(1);
-            m.print();
-            m.norm();
-            m.print();
+            m.gauss(true);
+            m.jordan(true);
         }
     }
 }

@@ -19,7 +19,7 @@ public class Matrix {
     }
 
     /**
-     * Get value double.
+     * Get matrix element at given indices.
      *
      * @param x the x
      * @param y the y
@@ -30,7 +30,7 @@ public class Matrix {
     }
 
     /**
-     * Set value.
+     * Set matrix element at given indices.
      *
      * @param x     the x
      * @param y     the y
@@ -41,7 +41,7 @@ public class Matrix {
     }
 
     /**
-     * Gets dim x.
+     * Gets dimX.
      *
      * @return the dim x
      */
@@ -50,7 +50,7 @@ public class Matrix {
     }
 
     /**
-     * Gets dim y.
+     * Gets dimY.
      *
      * @return the dim y
      */
@@ -61,15 +61,70 @@ public class Matrix {
     /**
      * Gauss.
      */
-    public void gauss(){
+    public void gauss(boolean debugmode){
+        for (int i = 0; i < dimY-1; i++) {
+            if (debugmode)
+                System.out.println("Sort:");
+            sortRows();
+            if (debugmode)
+                print();
 
+            if (debugmode)
+                System.out.println("Norm:");
+            norm();
+            if (debugmode)
+                print();
+
+            if (debugmode)
+                System.out.println("Combine "+i+":");
+            combine(i);
+            if (debugmode)
+                print();
+        }
+        if (debugmode)
+            System.out.println("Norm:");
+        norm();
+        if (debugmode)
+            print();
+    }
+
+    private void subtractRow(int firstRow, int secondRow, int targetRow) {
+        for (int x = 0; x < dimX; x++) {
+            values[targetRow][x] = values[firstRow][x] - values[secondRow][x];
+        }
+    }
+
+    private void multiplyRow(int row, double value) {
+        for (int x = 0; x < dimX; x++) {
+            values[row][x] = value * values[row][x];
+        }
     }
 
     /**
      * Jordan.
      */
-    public void jordan(){
+    public void jordan(boolean debugmode){
+        sortRows();
+        for (int subtrahendRow = dimY-1; subtrahendRow > 0; subtrahendRow--) {
+            for (int minuendRow = subtrahendRow-1; minuendRow >= 0; minuendRow--) {
+                if (debugmode)
+                    System.out.println("Jordan-Norm "+minuendRow+":");
+                multiplyRow(minuendRow, 1.0/values[minuendRow][subtrahendRow]);
+                if (debugmode)
+                    print();
 
+                if (debugmode)
+                    System.out.println("Jordan-combine "+minuendRow+"-"+subtrahendRow+"=>"+minuendRow+":");
+                subtractRow(minuendRow, subtrahendRow, minuendRow);
+                if (debugmode)
+                    print();
+            }
+            if (debugmode)
+                System.out.println("Jordan-Norm as"+subtrahendRow+":");
+            multiplyRow(subtrahendRow-1, 1.0/values[subtrahendRow-1][subtrahendRow-1]);
+            if (debugmode)
+                print();
+        }
     }
 
     /**
@@ -118,10 +173,10 @@ public class Matrix {
             }
         }
 
-        for (int ySort = 0; ySort < dimY; ySort++) {
+        for (int ySort = dimY-1; ySort > 0; ySort--) {
             int maxVal = 0;
             int maxIndex = 0;
-            for (int y = ySort; y < dimY; y++) {
+            for (int y = ySort; y >= 0; y--) {
                 if (firstNonZero[y] > maxVal) {
                     maxVal = firstNonZero[y];
                     maxIndex = y;
