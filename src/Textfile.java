@@ -6,16 +6,27 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Textfile.
+ */
 public class Textfile {
 	private String filepath;
+	/**
+	 * The Matrices.
+	 */
 	public Matrix[] matrices;
 	private File input;
 
+	/**
+	 * Instantiates a new Textfile.
+	 *
+	 * @param path the path
+	 */
 	public Textfile(String path) {
 		try{
 			this.filepath = path;
 			input = new File(path);
-			if(input.exists()){
+			if(!input.exists()){
 				throw new IOException("File not found.");
 			}
 		}
@@ -51,7 +62,7 @@ public class Textfile {
 	}
 
 	private ArrayList<Double> GetVariables(String s){
-		ArrayList<Double> res = new ArrayList<>(); 
+		ArrayList<Double> res = new ArrayList<>();
 		Matcher m = Pattern.compile("[0-9]+(\\.[0-9]+)*").matcher(s);
 		while (m.find()){
 			res.add(Double.valueOf(m.group()));
@@ -81,6 +92,6 @@ public class Textfile {
 	}
 
 	private boolean IsValid(String s){
-		return Pattern.matches("([0-9]+(\\.[0-9]+)*( |\t)*){2,}", s);    	
+		return Pattern.matches("([0-9]+(\\.[0-9]+)*( |\t)*){2,}", s);
 	}
 }

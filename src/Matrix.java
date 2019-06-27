@@ -1,31 +1,80 @@
+/**
+ * The type Matrix.
+ */
 public class Matrix {
     private double[][] values;
     private int dimX;
     private int dimY;
-    
+
+    /**
+     * Instantiates a new Matrix.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public Matrix (int x, int y){
     	values = new double[y][x];
     	dimX = x;
     	dimY = y;
     }
-    
+
+    /**
+     * Get value double.
+     *
+     * @param x the x
+     * @param y the y
+     * @return the double
+     */
     public double getValue(int x, int y){
         return values[y][x];
     }
-    
+
+    /**
+     * Set value.
+     *
+     * @param x     the x
+     * @param y     the y
+     * @param value the value
+     */
     public void setValue(int x, int y, double value){
         values[y][x] = value;
     }
 
+    /**
+     * Gets dim x.
+     *
+     * @return the dim x
+     */
+    public int getDimX() {
+        return dimX;
+    }
+
+    /**
+     * Gets dim y.
+     *
+     * @return the dim y
+     */
+    public int getDimY() {
+        return dimY;
+    }
+
+    /**
+     * Gauss.
+     */
     public void gauss(){
 
     }
+
+    /**
+     * Jordan.
+     */
     public void jordan(){
 
     }
 
     /**
-     * Normalizes every row in the matrix.
+     * Normalizes every row in the matrix by dividing each row
+     * by the first non-zero value.
      */
     public void norm(){
         for (int y = 0; y < dimY; y++){
@@ -41,8 +90,18 @@ public class Matrix {
             }
         }
     }
-    private void combine(){
 
+    /**
+     * Combines all following rows with the given row.
+     *
+     * @param rowIndex The index of the row used to eliminate
+     */
+    public void combine(int rowIndex){
+        for (int i = rowIndex + 1; i < dimY; i++) {
+            for (int k = 0; k < dimX; k++) {
+                values[i][k] = values[rowIndex][k] - values[i][k];
+            }
+        }
     }
 
     /**
@@ -69,12 +128,14 @@ public class Matrix {
                 }
             }
 
-            double[] tempRow = values[ySort];
-            values[ySort] = values[maxIndex];
-            values[maxIndex] = tempRow;
-            int temp = firstNonZero[ySort];
-            firstNonZero[ySort] = firstNonZero[maxIndex];
-            firstNonZero[maxIndex] = temp;
+            if (maxVal != 0) {
+                double[] tempRow = values[ySort];
+                values[ySort] = values[maxIndex];
+                values[maxIndex] = tempRow;
+                int temp = firstNonZero[ySort];
+                firstNonZero[ySort] = firstNonZero[maxIndex];
+                firstNonZero[maxIndex] = temp;
+            }
         }
     }
 
