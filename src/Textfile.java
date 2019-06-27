@@ -6,11 +6,22 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Textfile.
+ */
 public class Textfile {
 	private String filepath;
+	/**
+	 * The Matrices.
+	 */
 	public Matrix[] matrices;
 	private File input;
 
+	/**
+	 * Instantiates a new Textfile.
+	 *
+	 * @param path the path
+	 */
 	public Textfile(String path) {
 		try{
 			this.filepath = path;
@@ -55,6 +66,13 @@ public class Textfile {
 		return res;
 	}
 
+	/**
+	 * Generate matrix matrix.
+	 *
+	 * @param list the list
+	 * @return the matrix
+	 * @throws Exception the exception
+	 */
 	public Matrix GenerateMatrix(ArrayList<Double> list)  throws Exception{
 		ArrayList<String> FContent = ReadFile();
 		ArrayList<ArrayList<Double>> lines = BuildMatLines(FContent);
