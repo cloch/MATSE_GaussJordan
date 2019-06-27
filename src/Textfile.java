@@ -25,6 +25,18 @@ public class Textfile {
 
 	}
 
+	public Matrix GenerateMatrix()  throws Exception{
+		ArrayList<String> FContent = ReadFile();
+		ArrayList<ArrayList<Double>> lines = BuildMatLines(FContent);
+		Matrix m = new Matrix(lines.size(), lines.get(0).size());
+		for(int i = 0; i < lines.size(); i++){
+			for (int j = 0; j < lines.get(i).size(); j++){
+				m.setValue(i, j, lines.get(i).get(j));
+			}
+		}
+		return m;
+	}
+
 	private ArrayList<String> ReadFile() throws IOException{
 		ArrayList<String> list = new ArrayList<>();
 		String current;
@@ -53,18 +65,6 @@ public class Textfile {
 			res.add(GetVariables(s));
 		}
 		return res;
-	}
-
-	public Matrix GenerateMatrix(ArrayList<Double> list)  throws Exception{
-		ArrayList<String> FContent = ReadFile();
-		ArrayList<ArrayList<Double>> lines = BuildMatLines(FContent);
-		Matrix m = new Matrix(list.size(), lines.get(0).size());
-		for(int i = 0; i < lines.size(); i++){
-			for (int j = 0; j < lines.get(i).size(); j++){
-				m.setValue(i, j, lines.get(i).get(j));
-			}
-		}
-		return m;
 	}
 
 	private boolean CheckForEqualRows(ArrayList<ArrayList<Double>> list){
